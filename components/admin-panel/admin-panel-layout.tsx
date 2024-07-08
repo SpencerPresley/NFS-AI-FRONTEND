@@ -21,25 +21,27 @@ export default function AdminPanelLayout({
   if (!sidebar) return null;
 
   return (
-    <>
+    <div className="relative">
       <Sidebar />
-      <main
-        className={cn(
-          "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-          sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
-        )}
-      >
-        {children}
-
-      </main>
-      <footer
-        className={cn(
-          "transition-[margin-left] ease-in-out duration-300",
-          sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
-        )}
-      >
-        <Footer />
-      </footer>
-    </>
+      <div className="relative z-0"> {/* Add this wrapper */}
+        <CustomBackground sidebarOpen={sidebar.isOpen} />
+        <main
+          className={cn(
+            "relative z-10 min-h-[calc(100vh_-_56px)] transition-[margin-left] ease-in-out duration-300",
+            sidebar.isOpen ? "lg:ml-72" : "lg:ml-[90px]"
+          )}
+        >
+          {children}
+        </main>
+        {/* <footer
+          className={cn(
+            "relative z-10 transition-[margin-left] ease-in-out duration-300",
+            sidebar.isOpen ? "lg:ml-72" : "lg:ml-[90px]"
+          )}
+        >
+          <Footer />
+        </footer> */}
+      </div>
+    </div>
   );
 }
